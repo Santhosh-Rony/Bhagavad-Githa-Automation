@@ -21,24 +21,24 @@ Format:
         "మన ప్రయత్నమే మన చేతిలో ఉంటుంది.",
         "జయాపజయాలను సమానంగా తీసుకోవాలి."
     ],
-    "caption": "<An engaging Telugu caption for Instagram. 1-2 sentences. No emojis. Capture the soul of the sloka.>",
+    "caption": "<An engaging Telugu caption for Instagram. 1-2 sentences. Include a few relevant emojis. It should act as an indirect call to action, inspiring the reader to reflect or apply this teaching in their life.>",
     "hashtags": "#భగవద్గీత #BhagavadGita #గీతజ్ఞానం #శ్రీకృష్ణుడు #అధ్యాయం{chapter} #శ్లోకం{verse} #TeluguSpiritual #HinduPhilosophy"
 }}
 
 Rules:
 
 * "sloka" must be the exact, verified Sanskrit text of Bhagavad Gita {chapter}.{verse} written purely in Telugu script (తెలుగు లిపి). Do NOT paraphrase or invent.
-* Every other output field (artha, teaching, caption) MUST be in Telugu script only. No English words, no Romanized Telugu.
+* Every other output field (artha, teaching, caption) MUST be in Telugu script only. Emojis are allowed ONLY in the caption.
 * LANGUAGE RULE: "artha" and "teaching" MUST be written in extremely simple, daily conversational Telugu (వాడుక భాష). Do NOT use complex words, heavy bookish language, or difficult vocabulary. A normal person reading it on Instagram should instantly understand it without effort.
-* "artha" must provide a deeper understanding in clean, easy Telugu — around 4-5 lines long, max 400 characters. Count carefully.
-* "teaching" must be a JSON array of EXACTLY 4 practical strings. Keep the points short, grounded, and highly relevant to daily life. No generic fluff. Do not include bullet characters like `-` in the string itself.
-* "caption" must have no emojis. Short and powerful.
+* "artha" must provide a deeper understanding in clean, easy Telugu — around 4-5 lines long, max 400 characters. Count carefully. No emojis.
+* "teaching" must be a JSON array of EXACTLY 4 practical strings. Keep the points short, grounded, and highly relevant to daily life. No generic fluff. Do not include bullet characters like `-` in the string itself. No emojis.
+* "caption" MUST include appropriate, highly relevant emojis. Keep it short, powerful, and frame it as an indirect call to action that inspires the reader.
 * "hashtags" are the only field that can be in English/Telugu mixed.
 
 * Before returning the JSON, silently verify:
   ✓ The sloka text is 100% accurate for Bhagavad Gita {chapter}.{verse}
-  ✓ artha, teaching, and caption are all in Telugu script only
-  ✓ No emojis anywhere
+  ✓ artha and teaching are in Telugu script only (absolutely no emojis)
+  ✓ caption is in Telugu script but MUST contain relevant emojis
   ✓ artha is within 400 characters, and teaching is a JSON array of EXACTLY 4 strings
   ✓ Valid JSON only. No markdown code blocks like ```json.
 """
