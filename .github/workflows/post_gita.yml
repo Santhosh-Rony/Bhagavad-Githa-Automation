@@ -1,4 +1,4 @@
-name: Bhagavad Gita Daily Post
+name: Bhagavad Gita Post
 
 on:
   workflow_dispatch: 
