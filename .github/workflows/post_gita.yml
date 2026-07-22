@@ -49,9 +49,9 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git pull --rebase
           git add output/ gita_state.json
           git commit -m "Auto: Bhagavad Gita post - $(date +'%Y-%m-%d %H:%M UTC')" || echo "No changes to commit"
+          git pull --rebase
           git push
 
       - name: Wait for GitHub Pages to Serve Video
@@ -79,8 +79,8 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git pull --rebase
           rm -f output/*.png output/*.mp4
           git add output/
           git commit -m "Auto-cleanup: remove published media" || echo "No files to clean up"
+          git pull --rebase
           git push
