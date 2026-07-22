@@ -1,6 +1,7 @@
 from pydantic import BaseModel, Field
 
 class GitaPost(BaseModel):
+    audit_trail: str = Field(..., description="Step-by-step verification of the exact sloka text to prevent hallucination. State the starting words before generating the sloka.")
     chapter: int = Field(..., description="Chapter number (1-18)")
     verse: int = Field(..., description="Verse number within the chapter")
     sloka: str = Field(..., description="The original Sanskrit sloka transliterated in Telugu script (తెలుగు లిపి)")

@@ -11,6 +11,7 @@ Return ONLY valid JSON matching the schema below. Do not output anything else.
 
 Format:
 {{
+    "audit_trail": "<STEP 1: Verify the exact Sanskrit text for Bhagavad Gita {chapter}.{verse} in your memory. State the first 2-3 words of the verse in English/Sanskrit to prove you have the correct verse. Confirm you are not accidentally writing the previous or next verse.>",
     "chapter": {chapter},
     "verse": {verse},
     "sloka": "<The exact text of Bhagavad Gita {chapter}.{verse} written in TELUGU SCRIPT (తెలుగు లిపి). This is the standard Telugu-script transliteration of the Sanskrit sloka, as printed in Telugu Bhagavad Gita books. Must be 100% accurate to the verse.>",
@@ -27,7 +28,8 @@ Format:
 
 Rules:
 
-* "sloka" must be the exact, verified Sanskrit text of Bhagavad Gita {chapter}.{verse} written purely in Telugu script (తెలుగు లిపి). Do NOT paraphrase or invent.
+* SELF-VALIDATION FIRST: You must fill out the "audit_trail" field first to internally verify the exact verse text before you write it. This prevents hallucinations.
+* "sloka" must be the exact, verified Sanskrit text of Bhagavad Gita {chapter}.{verse} written purely in Telugu script (తెలుగు లిపి). Do NOT paraphrase or invent. Ensure proper grammar, sandhi splitting, and include the vertical pipe symbols ( | and || ).
 * Every other output field (artha, teaching, caption) MUST be in Telugu script only. Emojis are allowed ONLY in the caption.
 * LANGUAGE RULE: "artha" and "teaching" MUST be written in extremely simple, daily conversational Telugu (వాడుక భాష). Do NOT use complex words, heavy bookish language, or difficult vocabulary. A normal person reading it on Instagram should instantly understand it without effort.
 * "artha" must provide a deeper understanding in clean, easy Telugu — around 4-5 lines long, max 400 characters. Count carefully. No emojis.
