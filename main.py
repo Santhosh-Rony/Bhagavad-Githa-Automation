@@ -12,7 +12,7 @@ from video_generator import generate_video
 from video_uploader import upload_video
 
 
-TEMPLATE_PATH = "templates/Bhagavad_Gita_BG.png"
+TEMPLATE_PATH = "templates/bhagavad_gita_bg.png"
 
 
 def main():
