@@ -1,22 +1,10 @@
 from pydantic import BaseModel, Field
-from typing import List
 
-class QuizOption(BaseModel):
-    letter: str = Field(..., description="A, B, C, or D")
-    text: str = Field(..., description="The option text")
-
-class Quiz(BaseModel):
-    question: str = Field(..., description="A thought-provoking question about the character")
-    options: List[QuizOption] = Field(..., description="Exactly 4 options (A, B, C, D)")
-    answer: str = Field(..., description="The correct letter (A, B, C, or D)")
-
-class PostSection(BaseModel):
-    title: str = Field(..., description="The title of the section in ALL CAPS")
-    content: str = Field(..., description="The content of the section")
-
-class CharacterPost(BaseModel):
-    title: str = Field(..., description="Character name and epithet, e.g., 'ARJUNA | The Greatest Archer'")
-    sections: List[PostSection] = Field(..., description="The sections of the post")
-    quiz: Quiz = Field(..., description="A quiz about the character")
-    caption: str = Field(..., description="An engaging Instagram caption asking followers to answer the quiz")
-    hashtags: str = Field(..., description="Relevant hashtags e.g., #Mahabharata #Arjuna #HinduMythology")
+class GitaPost(BaseModel):
+    chapter: int = Field(..., description="Chapter number (1-18)")
+    verse: int = Field(..., description="Verse number within the chapter")
+    sloka: str = Field(..., description="The original Sanskrit sloka transliterated in Telugu script (తెలుగు లిపి)")
+    artha: str = Field(..., description="Detailed Telugu meaning of the sloka for a deeper understanding, approx 4-5 lines (max 400 chars). Must use very simple, daily conversational Telugu.")
+    teaching: list[str] = Field(..., description="What this sloka teaches us, formatted as a list of EXACTLY 4 short practical points in simple daily conversational Telugu.")
+    caption: str = Field(..., description="Engaging Telugu Instagram caption, no emojis")
+    hashtags: str = Field(..., description="Relevant hashtags")
