@@ -5,8 +5,8 @@ from gita_chapters import GITA_CHAPTERS, TOTAL_CHAPTERS
 
 STATE_FILE = "gita_state.json"
 
-# Music rotates from music2 to music11 (10 tracks)
-MUSIC_POOL = [f"music/music{i}.mp3" for i in range(2, 12)]  # music2..music11
+# Music rotates across all 12 tracks
+MUSIC_POOL = ["music/music.mp3"] + [f"music/music{i}.mp3" for i in range(1, 12)]
 
 def load_state() -> dict:
     """Load current chapter, verse and music index from state file."""
