@@ -5,7 +5,7 @@ from tenacity import retry, stop_after_attempt, wait_exponential
 from config import Config
 from logger import logger
 
-@retry(stop=stop_after_attempt(3), wait=wait_exponential(multiplier=1, min=2, max=10), reraise=True)
+@retry(stop=stop_after_attempt(5), wait=wait_exponential(multiplier=10, min=60, max=300), reraise=True)
 def create_media_container(video_url: str, caption: str, business_id: str, access_token: str) -> str:
     """
     Step 1 of Graph API: Create a media container for a REEL from a video URL.
@@ -67,7 +67,7 @@ def wait_for_processing(container_id: str, access_token: str) -> bool:
     logger.error("Video processing timed out after 5 minutes.")
     return False
 
-@retry(stop=stop_after_attempt(3), wait=wait_exponential(multiplier=1, min=2, max=10), reraise=True)
+@retry(stop=stop_after_attempt(5), wait=wait_exponential(multiplier=10, min=60, max=300), reraise=True)
 def publish_post(container_id: str, business_id: str, access_token: str) -> str:
     """
     Step 2 of Graph API: Publish the created media container to the feed.
@@ -117,7 +117,7 @@ def publish_media(video_url: str, caption: str) -> str:
     logger.info("Instagram publish completed")
     return post_id
 
-@retry(stop=stop_after_attempt(3), wait=wait_exponential(multiplier=1, min=2, max=10), reraise=True)
+@retry(stop=stop_after_attempt(5), wait=wait_exponential(multiplier=10, min=60, max=300), reraise=True)
 def create_story_media_container(video_url: str, business_id: str, access_token: str) -> str:
     """
     Create a media container for a STORY from a video URL.
