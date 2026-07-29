@@ -11,10 +11,10 @@ Return ONLY valid JSON matching the schema below. Do not output anything else.
 
 Format:
 {{
-    "audit_trail": "<STEP 1: Verify the exact Sanskrit text for Bhagavad Gita {chapter}.{verse} in your memory. State the first 2-3 words of the verse in English/Sanskrit to prove you have the correct verse. Confirm you are not accidentally writing the previous or next verse.>",
+    "audit_trail": "STEP 1: The verse BEFORE {chapter}.{verse} (i.e. {chapter}.{verse - 1 if verse > 1 else 'N/A'}) starts with the words: [state first 3 Sanskrit words]. STEP 2: The verse AFTER {chapter}.{verse} (i.e. {chapter}.{verse + 1}) starts with the words: [state first 3 Sanskrit words]. STEP 3: Therefore, Bhagavad Gita {chapter}.{verse} starts with the words: [state first 3 Sanskrit words]. I confirm this is NOT verse {verse - 1 if verse > 1 else 'N/A'} or {verse + 1}.",
     "chapter": {chapter},
     "verse": {verse},
-    "sloka": "<The exact text of Bhagavad Gita {chapter}.{verse} written in TELUGU SCRIPT (తెలుగు లిపి). This is the standard Telugu-script transliteration of the Sanskrit sloka, as printed in Telugu Bhagavad Gita books. Must be 100% accurate to the verse.>",
+    "sloka": "<The EXACT text of Bhagavad Gita {chapter}.{verse} written in TELUGU SCRIPT (తెలుగు లిపి). Must contain exactly 2 lines (padas) separated by '।' and end with '॥ {chapter}.{verse} ॥'. This verse must NOT be verse {verse - 1 if verse > 1 else 'N/A'} or {verse + 1}. Triple-check before writing.>",
     "artha": "<Detailed Telugu meaning of the sloka for a deeper understanding. Should be about 4-5 lines long. Max 400 Telugu characters. Use సాధారణ తెలుగు. A child should be able to understand it.>",
     "teaching": [
         "కర్తవ్యాన్ని నిజాయితీగా చేయాలి.",
@@ -28,8 +28,8 @@ Format:
 
 Rules:
 
-* SELF-VALIDATION FIRST: You must fill out the "audit_trail" field first to internally verify the exact verse text before you write it. This prevents hallucinations.
-* "sloka" must be the exact, verified Sanskrit text of Bhagavad Gita {chapter}.{verse} written purely in Telugu script (తెలుగు లిపి). Do NOT paraphrase or invent. Ensure proper grammar, sandhi splitting, and include the vertical pipe symbols ( | and || ).
+* ANTI-HALLUCINATION PROTOCOL: You MUST fill out "audit_trail" FIRST. In it, explicitly state the first 3 words of the PREVIOUS verse and the NEXT verse. This forces you to locate the exact verse boundary. Only then write the sloka.
+* "sloka" must be the exact, verified Sanskrit text of Bhagavad Gita {chapter}.{verse} written purely in Telugu script (తెలుగు లిపి). Do NOT paraphrase or invent. The verse MUST end with ॥ {chapter}.{verse} ॥. Ensure proper sandhi, and include the pipe symbols ( । and ॥ ). CRITICAL: Do NOT accidentally write verse {verse - 1 if verse > 1 else 'N/A'} or verse {verse + 1}.
 * Every other output field (artha, teaching, caption) MUST be in Telugu script only. Emojis are allowed ONLY in the caption.
 * LANGUAGE RULE: "artha" and "teaching" MUST be written in extremely simple, daily conversational Telugu (వాడుక భాష). Do NOT use complex words, heavy bookish language, or difficult vocabulary. A normal person reading it on Instagram should instantly understand it without effort.
 * "artha" must provide a deeper understanding in clean, easy Telugu — around 4-5 lines long, max 400 characters. Count carefully. No emojis.
