@@ -107,7 +107,7 @@ def _generate_with_openrouter(api_key: str, prompt: str) -> GitaPost:
                     {"role": "system", "content": "You are an expert on the Bhagavad Gita. Output only valid JSON."},
                     {"role": "user", "content": prompt},
                 ],
-                temperature=0.7,
+                temperature=0,
             )
             content = response.choices[0].message.content
             return _parse_gita_post(content)
