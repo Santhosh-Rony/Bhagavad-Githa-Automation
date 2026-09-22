@@ -34,12 +34,16 @@ jobs:
 
       - name: Generate Gita Content and Render Video
         env:
+          GEMINI_LITE_KEY: ${{ secrets.GEMINI_LITE_KEY }}
+          GEMINI_LITE_KEY_1: ${{ secrets.GEMINI_LITE_KEY_1 }}
+          GEMINI_LITE_KEY_2: ${{ secrets.GEMINI_LITE_KEY_2 }}
+          GEMINI_LITE_KEY_3: ${{ secrets.GEMINI_LITE_KEY_3 }}
+          GEMINI_LITE_KEY_4: ${{ secrets.GEMINI_LITE_KEY_4 }}
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
-          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
-          OPENROUTER_FALLBACK_API_KEY: ${{ secrets.OPENROUTER_FALLBACK_API_KEY }}
-          OPENROUTER_FALLBACK_API_KEY_1: ${{ secrets.OPENROUTER_FALLBACK_API_KEY_1 }}
-          OPENROUTER_FALLBACK_API_KEY_2: ${{ secrets.OPENROUTER_FALLBACK_API_KEY_2 }}
-          OPENROUTER_FALLBACK_API_KEY_3: ${{ secrets.OPENROUTER_FALLBACK_API_KEY_3 }}
+          GEMINI_API_KEY_1: ${{ secrets.GEMINI_API_KEY_1 }}
+          GEMINI_API_KEY_2: ${{ secrets.GEMINI_API_KEY_2 }}
+          GEMINI_API_KEY_3: ${{ secrets.GEMINI_API_KEY_3 }}
+          GEMINI_API_KEY_4: ${{ secrets.GEMINI_API_KEY_4 }}
           GITHUB_USERNAME: ${{ github.repository_owner }}
           GITHUB_REPOSITORY: ${{ github.event.repository.name }}
         run: |
