@@ -11,12 +11,20 @@ class Config:
     GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY")
     GEMINI_API_KEY_STORY = os.environ.get("GEMINI_API_KEY_STORY")
     HUGGINGFACE_API_KEY = os.environ.get("HUGGINGFACE_API_KEY")
-    OPENROUTER_API_KEYS = [k for k in [
-        os.environ.get("OPENROUTER_API_KEY"),
-        os.environ.get("OPENROUTER_FALLBACK_API_KEY"),
-        os.environ.get("OPENROUTER_FALLBACK_API_KEY_1"),
-        os.environ.get("OPENROUTER_FALLBACK_API_KEY_2"),
-        os.environ.get("OPENROUTER_FALLBACK_API_KEY_3")
+    GEMINI_LITE_KEYS = [k for k in [
+        os.environ.get("GEMINI_LITE_KEY"),
+        os.environ.get("GEMINI_LITE_KEY_1"),
+        os.environ.get("GEMINI_LITE_KEY_2"),
+        os.environ.get("GEMINI_LITE_KEY_3"),
+        os.environ.get("GEMINI_LITE_KEY_4")
+    ] if k]
+
+    GEMINI_FLASH_KEYS = [k for k in [
+        os.environ.get("GEMINI_API_KEY"),
+        os.environ.get("GEMINI_API_KEY_1"),
+        os.environ.get("GEMINI_API_KEY_2"),
+        os.environ.get("GEMINI_API_KEY_3"),
+        os.environ.get("GEMINI_API_KEY_4")
     ] if k]
     
     GITHUB_USERNAME = os.environ.get("GITHUB_USERNAME")
@@ -38,8 +46,10 @@ class Config:
     @classmethod
     def validate(cls):
         """Validates that all necessary environment variables are set."""
-        if not cls.OPENROUTER_API_KEYS:
-            logger.warning("No OpenRouter API keys found in environment variables.")
+        if not cls.GEMINI_LITE_KEYS:
+            logger.warning("No Gemini Lite API keys found in environment variables.")
+        if not cls.GEMINI_FLASH_KEYS:
+            logger.warning("No Gemini Flash API keys found in environment variables.")
         if not cls.INSTAGRAM_ACCESS_TOKEN:
             logger.warning("INSTAGRAM_ACCESS_TOKEN missing.")
         if not cls.INSTAGRAM_BUSINESS_ID:
