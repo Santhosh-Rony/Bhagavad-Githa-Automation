@@ -5,9 +5,10 @@ from logger import logger
 from models import GitaPost
 
 # ── Fonts (same as Mahabharata automation) ─────────────────────────────────
-FONT_BOLD    = "assets/NotoSansTelugu-Bold.ttf"
-FONT_REGULAR = "assets/NotoSansTelugu-Regular.ttf"
-FONT_SERIF   = "assets/NotoSerif-VariableFont_wdth,wght.ttf"   # for Sanskrit & watermark
+FONT_BOLD       = "assets/NotoSansTelugu-Bold.ttf"
+FONT_REGULAR    = "assets/NotoSansTelugu-Regular.ttf"
+FONT_DEVANAGARI = "assets/NotoSansDevanagari-Bold.ttf"           # for Sanskrit slokas
+FONT_SERIF      = "assets/NotoSerif-VariableFont_wdth,wght.ttf"  # for watermark
 
 # ── Colors (identical to Mahabharata automation) ───────────────────────────
 COLOR_TITLE   = (90,  40,  10,  255)   # Dark brown  — main title
@@ -21,6 +22,53 @@ def load_font(path: str, size: int):
         return ImageFont.truetype(path, size)
     except IOError:
         return ImageFont.load_default()
+
+
+def transliterate_devanagari_to_telugu(text: str) -> str:
+    """
+    Converts any Devanagari characters (U+0900–U+097F) in the text to their
+    Telugu equivalents (U+0C00–U+0C7F) using the fixed Brahmi-family Unicode offset.
+    
+    Both scripts share the same structural layout in Unicode, so the mapping is
+    a simple offset of 0x0300 (768) for most characters.
+    
+    Characters outside Devanagari (ASCII, Telugu, punctuation) are left untouched.
+    Devanagari dandas (।॥) at U+0964-U+0965 are preserved as-is since they are
+    shared punctuation used across all Indic scripts.
+    """
+    OFFSET = 0x0C00 - 0x0900  # = 768
+
+    result = []
+    for ch in text:
+        code = ord(ch)
+        if 0x0900 <= code <= 0x0963 or 0x0966 <= code <= 0x097F:
+            # Core Devanagari range (skip dandas at 0x0964-0x0965)
+            telugu_code = code + OFFSET
+            # Verify the mapped character is in valid Telugu range
+            if 0x0C00 <= telugu_code <= 0x0C7F:
+                result.append(chr(telugu_code))
+            else:
+                result.append(ch)  # Keep original if mapping falls outside Telugu
+        else:
+            result.append(ch)  # Keep dandas, ASCII, Telugu, spaces, etc.
+
+    return "".join(result)
+
+
+def normalize_sloka_text(text: str) -> str:
+    """
+    Ensures the sloka text is fully in Telugu script for consistent rendering.
+    If any Devanagari characters are detected, they are transliterated to Telugu.
+    """
+    devanagari_count = sum(1 for ch in text if '\u0900' <= ch <= '\u097F')
+    
+    if devanagari_count > 0:
+        logger.info(f"Sloka contains {devanagari_count} Devanagari characters — transliterating to Telugu")
+        return transliterate_devanagari_to_telugu(text)
+    else:
+        logger.info("Sloka is already in Telugu script — no transliteration needed")
+        return text
+
 
 
 def wrap_text(text: str, font, max_width: int, draw) -> str:
@@ -60,12 +108,15 @@ def render_gita_image(post: GitaPost, cta_text: str, template_path: str, output_
 
         while base_content_size >= 28:
 
+            # Normalize sloka: transliterate any Devanagari to Telugu for consistent rendering
+            post.sloka = normalize_sloka_text(post.sloka)
+
             # Load fonts at current sizes
             title_font        = load_font(FONT_BOLD,    80)               # శ్రీమద్భగవద్గీత
             badge_font        = load_font(FONT_REGULAR, 44)               # అధ్యాయం X • శ్లోకం Y
             section_title_font = load_font(FONT_BOLD,   base_title_size)  # section labels
             content_font      = load_font(FONT_BOLD,    base_content_size) # body text
-            sloka_font        = load_font(FONT_BOLD,    base_content_size) # Telugu script
+            sloka_font        = load_font(FONT_BOLD,    base_content_size) # Telugu (always, after normalization)
 
             img_width  = 1080
             img_height = 1920
